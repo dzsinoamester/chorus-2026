@@ -22,7 +22,15 @@ export function arcPath(
   return `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`;
 }
 
-export default function Logo({ className = "" }: { className?: string }) {
+export default function Logo({
+  className = "",
+  variant = "onDark",
+}: {
+  className?: string;
+  variant?: "onDark" | "onLight";
+}) {
+  const outer = variant === "onDark" ? "#F2EFE8" : "#0D0D12";
+
   return (
     <svg
       viewBox="0 0 64 64"
@@ -31,7 +39,7 @@ export default function Logo({ className = "" }: { className?: string }) {
       strokeLinecap="round"
       aria-hidden="true"
     >
-      <path d={arcPath(23, 62, 0)} stroke="#F2EFE8" strokeWidth="5" />
+      <path d={arcPath(23, 62, 0)} stroke={outer} strokeWidth="5" />
       <path d={arcPath(15.5, 84, -12)} stroke="#8B6CFF" strokeWidth="5" />
       <path d={arcPath(8, 74, 6)} stroke="#FF7A59" strokeWidth="5" />
     </svg>

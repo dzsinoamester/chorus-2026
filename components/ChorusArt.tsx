@@ -1,24 +1,11 @@
 import { arcPath } from "./Logo";
 
-type Variant = "ink" | "brand";
+type Variant = "brand" | "coral";
 
-type Ring = {
-  radius: number;
-  width: number;
-  color: string;
-  gap: number;
-  rotate: number;
-};
-
-const compositions: Record<Variant, { rings: Ring[]; background: string }> = {
-  ink: {
-    background: "#12121A",
-    rings: [
-      { radius: 118, width: 26, color: "#F2EFE8", gap: 58, rotate: -8 },
-      { radius: 81, width: 26, color: "#8B6CFF", gap: 74, rotate: 8 },
-      { radius: 47, width: 24, color: "#FF7A59", gap: 62, rotate: -2 },
-    ],
-  },
+const compositions: Record<
+  Variant,
+  { background: string; rings: { radius: number; width: number; color: string; gap: number; rotate: number }[] }
+> = {
   brand: {
     background: "#8B6CFF",
     rings: [
@@ -27,10 +14,18 @@ const compositions: Record<Variant, { rings: Ring[]; background: string }> = {
       { radius: 45, width: 24, color: "#FF7A59", gap: 68, rotate: 4 },
     ],
   },
+  coral: {
+    background: "#FF7A59",
+    rings: [
+      { radius: 118, width: 24, color: "#0D0D12", gap: 64, rotate: -10 },
+      { radius: 80, width: 24, color: "#F2EFE8", gap: 78, rotate: 8 },
+      { radius: 45, width: 22, color: "#8B6CFF", gap: 66, rotate: 0 },
+    ],
+  },
 };
 
 export default function ChorusArt({
-  variant = "ink",
+  variant = "brand",
   className = "",
 }: {
   variant?: Variant;

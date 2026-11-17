@@ -1,42 +1,32 @@
 import ChorusArt from "@/components/ChorusArt";
 import Logo from "@/components/Logo";
+import PhoneMock from "@/components/PhoneMock";
+import Reveal from "@/components/Reveal";
 import WaitlistForm from "@/components/WaitlistForm";
 
 const PLUS_PRICE = "$6.99";
 
-const features = [
+const navLinks = [
+  { label: "Discover", href: "#discover" },
+  { label: "Artists", href: "#artists" },
+  { label: "Plans", href: "#plans" },
+];
+
+const reasons = [
   {
     title: "Discovery with taste",
     body: "Human curators and community playlists sit next to the algorithm, so your recommendations stop going in circles.",
-    tone: "text-brand bg-brand/12",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-        <circle cx="12" cy="12" r="8.5" />
-        <circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none" />
-      </svg>
-    ),
+    meta: "Curators · Community · Editorial",
   },
   {
     title: "Fairer pay for artists",
     body: "A bigger share of every stream goes to the people who made the music, with clear reports on where it came from.",
-    tone: "text-coral bg-coral/12",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-        <circle cx="12" cy="12" r="8.5" />
-        <path d="M12 7.2v9.6" />
-        <path d="M14.6 9.4c0-1-1.1-1.6-2.6-1.6s-2.5.7-2.5 1.8c0 1.4 1.3 1.7 2.5 2s2.6.7 2.6 2.1c0 1.2-1.1 1.9-2.6 1.9s-2.6-.7-2.6-1.8" />
-      </svg>
-    ),
+    meta: "Direct payouts · Clear reports",
   },
   {
     title: "Sound and credits done right",
     body: "Lossless audio, and every writer, producer and player listed on every track.",
-    tone: "text-mist bg-mist/12",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
-        <path d="M3.5 10v4M7.5 7v10M11.5 9.5v5M15.5 6v12M19.5 9.5v5" />
-      </svg>
-    ),
+    meta: "Lossless · Full credits",
   },
 ];
 
@@ -55,56 +45,89 @@ const artistPoints = [
   },
 ];
 
-const plans = [
-  {
-    name: "Free",
-    price: "Free",
-    caption: null,
-    features: [
-      "Listening with ads",
-      "Daily picks and community playlists",
-      "Standard audio quality",
-    ],
-    cta: "Start free",
-    featured: false,
-  },
-  {
-    name: "Chorus Plus",
-    price: PLUS_PRICE,
-    caption: "/month",
-    features: ["Lossless audio", "No ads", "Offline listening"],
-    cta: "Get Chorus Plus",
-    featured: true,
-  },
+const tracks = [
+  { title: "Wherever we fall", time: "3:42" },
+  { title: "Slow Static", time: "4:05" },
+  { title: "Tide Letters", time: "2:58" },
 ];
+
+function Arrow({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function Check({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M5 12.5l4.5 4.5L19 6.5" />
+    </svg>
+  );
+}
+
+function Label({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`text-[11px] font-medium tracking-[0.14em] uppercase ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
-      <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/85 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6">
+    <div className="bg-ink text-bone">
+      <Reveal />
+
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-ink">
+        <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between px-6">
           <a href="#top" className="flex items-center gap-2.5">
-            <Logo className="h-9 w-9" />
-            <span className="font-display text-2xl font-medium tracking-tight">
+            <Logo className="h-8 w-8" />
+            <span className="font-display text-[17px] font-medium tracking-[-0.01em]">
               Chorus
             </span>
           </a>
 
-          <nav className="hidden items-center gap-10 text-sm text-bone/75 md:flex">
-            <a className="transition-colors hover:text-bone" href="#discover">
-              Discover
-            </a>
-            <a className="transition-colors hover:text-bone" href="#artists">
-              Artists
-            </a>
-            <a className="transition-colors hover:text-bone" href="#plans">
-              Plans
-            </a>
+          <nav className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-[13px] text-bone/50 transition-colors hover:text-bone"
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
 
           <a
             href="#waitlist"
-            className="rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-brand/90"
+            className="rounded-full bg-bone px-4 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-white"
           >
             Get Chorus
           </a>
@@ -113,86 +136,121 @@ export default function Home() {
 
       <main id="top">
         {/* Hero */}
-        <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <div>
-              <span className="inline-flex items-center rounded-full border border-brand/40 px-3 py-1 text-[11px] font-medium tracking-[0.08em] text-brand">
-                Early access
-              </span>
-              <h1 className="mt-6 font-display text-[clamp(3.4rem,8vw,6.2rem)] leading-[0.92] font-medium tracking-[-0.04em]">
+        <section className="relative overflow-hidden border-b border-white/10">
+          <div
+            aria-hidden="true"
+            className="absolute inset-y-0 right-0 hidden w-[46%] overflow-hidden bg-brand lg:block"
+          >
+            <div className="absolute inset-[-35%] animate-orbit">
+              <ChorusArt variant="brand" className="h-full w-full" />
+            </div>
+          </div>
+
+          <div className="relative mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 px-6 pt-14 lg:grid-cols-12 lg:gap-8 lg:py-24">
+            <div className="lg:col-span-6">
+              <Label className="text-mist">Early access · 2026</Label>
+
+              <h1 className="mt-6 font-display text-[clamp(3.4rem,8.4vw,7rem)] leading-[0.86] font-medium tracking-[-0.05em]">
                 Hear
                 <br />
-                everyone.
+                <span className="text-brand">everyone.</span>
               </h1>
-              <p className="mt-7 max-w-md text-lg leading-relaxed text-mist">
+
+              <p className="mt-7 max-w-sm text-[15px] leading-relaxed text-bone/55">
                 A music platform that helps you find voices you would have
                 missed, and pays the people who make them a fairer share.
               </p>
-              <div className="mt-9 flex flex-wrap gap-3">
+
+              <div className="mt-8 flex flex-wrap items-center gap-5">
                 <a
                   href="#waitlist"
-                  className="rounded-full bg-brand px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-brand/90"
+                  className="rounded-full bg-bone px-5 py-2.5 text-[13px] font-medium text-ink transition-colors hover:bg-white"
                 >
                   Start listening
                 </a>
                 <a
                   href="#artists"
-                  className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-bone transition-colors hover:bg-white/5"
+                  className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-bone/70 transition-colors hover:text-bone"
                 >
                   For artists
+                  <Arrow className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </a>
               </div>
+
+              <p className="mt-6 text-[12px] text-bone/30">
+                Free to start. No card needed.
+              </p>
             </div>
 
-            <div className="relative">
-              <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] border border-white/10">
-                <ChorusArt variant="ink" className="h-full w-full" />
-                <div className="absolute inset-x-5 bottom-5 flex items-center gap-3 rounded-2xl border border-white/10 bg-ink/85 p-2.5 pr-4 backdrop-blur">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-coral">
-                    <span className="h-4 w-4 rounded-full bg-ink" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[10px] font-medium tracking-[0.16em] text-mist uppercase">
-                      Now playing
-                    </p>
-                    <p className="truncate text-sm font-medium">Midnight Tram</p>
-                    <p className="truncate text-xs text-mist">Okra Lane</p>
-                  </div>
+            <div className="relative lg:col-span-5 lg:col-start-8 lg:justify-self-end">
+              <div className="relative -mx-6 overflow-hidden bg-brand px-6 pt-10 pb-12 lg:mx-0 lg:overflow-visible lg:bg-transparent lg:p-0">
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-[-30%] animate-orbit lg:hidden"
+                >
+                  <ChorusArt variant="brand" className="h-full w-full" />
+                </div>
+                <div className="relative flex justify-center">
+                  <PhoneMock className="w-[280px] sm:w-[300px]" />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Why Chorus */}
-        <section id="discover" className="scroll-mt-24 border-t border-white/5">
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-            <p className="text-[11px] font-medium tracking-[0.18em] text-coral uppercase">
-              Why Chorus
-            </p>
-            <h2 className="mt-5 max-w-2xl font-display text-4xl leading-[1.05] font-medium tracking-[-0.03em] md:text-5xl">
-              Built for people who actually love music.
-            </h2>
+        <div className="border-b border-white/10">
+          <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-y-3 px-6 py-4 text-[11px] tracking-[0.12em] text-mist uppercase md:grid-cols-4">
+            <span>Lossless audio</span>
+            <span>Direct payouts</span>
+            <span>Full credits</span>
+            <span className="hidden md:block md:text-right">
+              Every voice. One sound.
+            </span>
+          </div>
+        </div>
 
-            <div className="mt-12 grid gap-5 md:grid-cols-3">
-              {features.map((feature) => (
-                <article
-                  key={feature.title}
-                  className="rounded-3xl border border-white/5 bg-surface p-7"
-                >
-                  <span
-                    className={`grid h-11 w-11 place-items-center rounded-xl ${feature.tone}`}
+        {/* Why Chorus */}
+        <section id="discover" className="scroll-mt-20 border-b border-white/10">
+          <div className="mx-auto grid max-w-[1240px] gap-12 px-6 py-20 md:py-28 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-24">
+                <Label className="text-mist">Why Chorus</Label>
+                <h2 className="mt-5 font-display text-[clamp(2.4rem,4.6vw,3.8rem)] leading-[0.98] font-medium tracking-[-0.045em]">
+                  Built for people who actually love music.
+                </h2>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 lg:col-start-7">
+              <div className="border-t border-white/10">
+                {reasons.map((reason, index) => (
+                  <div
+                    key={reason.title}
+                    data-reveal
+                    style={
+                      {
+                        "--reveal-delay": `${index * 70}ms`,
+                      } as React.CSSProperties
+                    }
+                    className="grid gap-3 border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02] sm:grid-cols-[3rem_1fr] sm:-mx-4 sm:px-4"
                   >
-                    <span className="h-5 w-5">{feature.icon}</span>
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-medium tracking-[-0.01em]">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-mist">
-                    {feature.body}
-                  </p>
-                </article>
-              ))}
+                    <span className="text-[12px] tabular-nums text-bone/25">
+                      0{index + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl font-medium tracking-[-0.02em]">
+                        {reason.title}
+                      </h3>
+                      <p className="mt-2 max-w-lg text-sm leading-relaxed text-bone/50">
+                        {reason.body}
+                      </p>
+                      <p className="mt-3 text-[11px] tracking-[0.1em] text-bone/25 uppercase">
+                        {reason.meta}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -200,51 +258,83 @@ export default function Home() {
         {/* For artists */}
         <section
           id="artists"
-          className="scroll-mt-24 border-t border-white/5 bg-surface/40"
+          className="scroll-mt-20 bg-brand text-ink"
         >
-          <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-20 md:py-28 lg:grid-cols-2 lg:gap-20">
-            <div>
-              <p className="text-[11px] font-medium tracking-[0.18em] text-coral uppercase">
-                For artists
-              </p>
-              <h2 className="mt-5 font-display text-4xl leading-[1.05] font-medium tracking-[-0.03em] md:text-5xl">
-                Get paid for being
-                <br className="hidden sm:block" /> heard.
+          <div className="mx-auto grid max-w-[1240px] gap-14 px-6 py-20 md:py-28 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-6">
+              <Label className="text-ink/50">For artists</Label>
+              <h2 className="mt-5 font-display text-[clamp(2.4rem,5vw,4.2rem)] leading-[0.95] font-medium tracking-[-0.045em] text-ink">
+                Get paid for being heard.
               </h2>
+              <p className="mt-5 max-w-sm text-sm leading-relaxed text-ink/60">
+                Keep the people who made the record in the picture — from the
+                first stream to the last credit.
+              </p>
 
-              <dl className="mt-10">
+              <div className="mt-10 border-t border-ink/25">
                 {artistPoints.map((point) => (
                   <div
                     key={point.title}
-                    className="border-t border-white/10 py-5 first:border-t-0 first:pt-0"
+                    className="border-b border-ink/15 py-5"
                   >
-                    <dt className="font-display text-lg font-medium">
+                    <h3 className="font-display text-lg font-medium tracking-[-0.015em] text-ink">
                       {point.title}
-                    </dt>
-                    <dd className="mt-1 text-sm text-mist">{point.body}</dd>
+                    </h3>
+                    <p className="mt-1.5 text-sm text-ink/60">{point.body}</p>
                   </div>
                 ))}
-              </dl>
+              </div>
+
+              <a
+                href="#waitlist"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-[13px] font-medium text-bone transition-colors hover:bg-surface"
+              >
+                Open an artist page
+                <Arrow className="h-3.5 w-3.5" />
+              </a>
             </div>
 
-            <div className="relative aspect-[5/4] overflow-hidden rounded-[28px]">
-              <ChorusArt variant="brand" className="h-full w-full" />
+            <div className="lg:col-span-5 lg:col-start-8">
+              <div className="rounded-xl bg-ink p-5 text-bone ring-1 ring-black/20">
+                <div className="flex items-center gap-3.5">
+                  <span className="h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-coral">
+                    <ChorusArt variant="coral" className="h-full w-full" />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] tracking-[0.12em] text-bone/35 uppercase">
+                      Artist page
+                    </p>
+                    <p className="mt-0.5 font-display text-[17px] font-medium">
+                      Okra Lane
+                    </p>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-bone px-3.5 py-1.5 text-[11px] font-medium text-ink">
+                    Follow
+                  </span>
+                </div>
 
-              <span className="absolute top-6 left-6 rounded-full bg-ink px-3.5 py-1.5 text-[11px] font-medium text-bone">
-                artist page
-              </span>
+                <div className="mt-5 border-t border-white/10 pt-2">
+                  {tracks.map((track, index) => (
+                    <div
+                      key={track.title}
+                      className="flex items-center gap-3 py-2.5"
+                    >
+                      <span className="w-4 text-[11px] tabular-nums text-bone/25">
+                        {index + 1}
+                      </span>
+                      <span className="flex-1 truncate text-[13px] text-bone/85">
+                        {track.title}
+                      </span>
+                      <span className="text-[11px] tabular-nums text-bone/25">
+                        {track.time}
+                      </span>
+                    </div>
+                  ))}
+                </div>
 
-              <div className="absolute right-6 bottom-6 flex items-center gap-3 rounded-xl bg-bone p-2 pr-4">
-                <span className="grid h-10 w-10 place-items-center rounded-lg bg-coral">
-                  <span className="h-4 w-4 rounded-full bg-ink" />
-                </span>
-                <div>
-                  <p className="text-sm leading-tight font-semibold text-ink">
-                    Okra Lane
-                  </p>
-                  <p className="text-xs leading-tight text-ink/55">
-                    Wherever we fall
-                  </p>
+                <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-[11px] text-bone/35">
+                  <span>Wherever we fall — EP</span>
+                  <span>Okra Lane</span>
                 </div>
               </div>
             </div>
@@ -252,129 +342,151 @@ export default function Home() {
         </section>
 
         {/* Plans */}
-        <section id="plans" className="scroll-mt-24 border-t border-white/5">
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-            <p className="text-center text-[11px] font-medium tracking-[0.18em] text-mist uppercase">
-              Plans
-            </p>
-            <h2 className="mx-auto mt-5 max-w-2xl text-center font-display text-4xl leading-[1.05] font-medium tracking-[-0.03em] md:text-5xl">
-              Start free. Go further when you want.
-            </h2>
+        <section id="plans" className="scroll-mt-20 border-b border-white/10">
+          <div className="mx-auto grid max-w-[1240px] gap-12 px-6 py-20 md:py-28 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="lg:sticky lg:top-24">
+                <Label className="text-mist">Plans</Label>
+                <h2 className="mt-5 font-display text-[clamp(2.4rem,4.6vw,3.8rem)] leading-[0.98] font-medium tracking-[-0.045em]">
+                  Start free. Go further when you want.
+                </h2>
+              </div>
+            </div>
 
-            <div className="mx-auto mt-12 grid max-w-3xl gap-5 sm:grid-cols-2">
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`flex flex-col rounded-3xl p-7 ${
-                    plan.featured
-                      ? "border border-brand/60 bg-surface"
-                      : "border border-white/10 bg-surface/60"
-                  }`}
-                >
-                  <p
-                    className={`text-sm ${
-                      plan.featured ? "text-brand" : "text-mist"
-                    }`}
-                  >
-                    {plan.name}
+            <div className="lg:col-span-6 lg:col-start-7">
+              <div className="grid gap-10 border-t border-white/10 pt-10 sm:grid-cols-2 sm:gap-0 sm:border-t-0 sm:pt-0">
+                <div data-reveal className="sm:pr-10">
+                  <Label className="text-mist">Free</Label>
+                  <p className="mt-4 font-display text-[2.6rem] leading-none font-medium tracking-[-0.04em]">
+                    $0
                   </p>
-                  <p className="mt-3 flex items-baseline gap-1.5 font-display text-4xl font-medium tracking-[-0.02em]">
-                    {plan.price}
-                    {plan.caption && (
-                      <span className="font-sans text-sm font-normal text-mist">
-                        {plan.caption}
-                      </span>
-                    )}
-                  </p>
-
-                  <ul className="mt-7 flex-1 space-y-3">
-                    {plan.features.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2.5 text-sm text-bone/80"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className={`mt-0.5 h-4 w-4 shrink-0 ${
-                            plan.featured ? "text-brand" : "text-mist"
-                          }`}
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.4"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M4.5 12.5l4.5 4.5L19.5 6.5" />
-                        </svg>
+                  <ul className="mt-7 space-y-2.5 text-sm text-bone/55">
+                    {[
+                      "Listening with ads",
+                      "Daily picks and community playlists",
+                      "Standard audio quality",
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-bone/20" />
                         {item}
                       </li>
                     ))}
                   </ul>
-
                   <a
                     href="#waitlist"
-                    className={`mt-8 rounded-xl py-3 text-center text-sm font-medium transition-colors ${
-                      plan.featured
-                        ? "bg-brand text-ink hover:bg-brand/90"
-                        : "border border-white/15 text-bone hover:bg-white/5"
-                    }`}
+                    className="mt-8 block rounded-full border border-white/20 py-2.5 text-center text-[13px] font-medium text-bone/80 transition-colors hover:border-white/45 hover:text-bone"
                   >
-                    {plan.cta}
+                    Start free
                   </a>
                 </div>
-              ))}
+
+                <div
+                  data-reveal
+                  style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
+                  className="border-t border-white/10 pt-10 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-10"
+                >
+                  <Label className="text-brand">Chorus Plus</Label>
+                  <p className="mt-4 flex items-baseline gap-1.5 font-display text-[2.6rem] leading-none font-medium tracking-[-0.04em]">
+                    {PLUS_PRICE}
+                    <span className="font-sans text-sm font-normal tracking-normal text-bone/40">
+                      /month
+                    </span>
+                  </p>
+                  <ul className="mt-7 space-y-2.5 text-sm text-bone/55">
+                    {["Lossless audio", "No ads", "Offline listening"].map(
+                      (item) => (
+                        <li key={item} className="flex items-start gap-2.5">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                          {item}
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                  <a
+                    href="#waitlist"
+                    className="mt-8 block rounded-full bg-brand py-2.5 text-center text-[13px] font-medium text-ink transition-colors hover:bg-brand/90"
+                  >
+                    Get Chorus Plus
+                  </a>
+                </div>
+              </div>
+
+              <p className="mt-8 text-[11px] tracking-[0.1em] text-bone/25 uppercase">
+                Prices in USD · cancel anytime
+              </p>
             </div>
           </div>
         </section>
 
         {/* Waitlist */}
-        <section id="waitlist" className="scroll-mt-24 px-6 pb-20 md:pb-28">
-          <div className="mx-auto max-w-6xl overflow-hidden rounded-[32px] bg-brand px-8 py-12 md:px-14 md:py-16">
-            <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-              <div>
-                <h2 className="font-display text-4xl leading-[1.02] font-medium tracking-[-0.03em] text-ink md:text-5xl">
-                  Every voice. One sound.
-                </h2>
-                <p className="mt-4 text-ink/70">
-                  Join the waitlist and be the first to listen.
-                </p>
+        <section id="waitlist" className="scroll-mt-20">
+          <div className="mx-auto grid max-w-[1240px] gap-12 px-6 py-20 md:py-28 lg:grid-cols-12 lg:items-end">
+            <div data-reveal className="lg:col-span-7">
+              <Label className="text-mist">Early access</Label>
+              <h2 className="mt-6 font-display text-[clamp(3rem,7.2vw,6rem)] leading-[0.88] font-medium tracking-[-0.05em]">
+                Every voice.
+                <br />
+                <span className="text-brand">One sound.</span>
+              </h2>
+            </div>
+
+            <div
+              data-reveal
+              style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
+              className="lg:col-span-4 lg:col-start-9"
+            >
+              <p className="text-sm leading-relaxed text-bone/50">
+                Join the waitlist and be the first to listen.
+              </p>
+              <div className="mt-6">
+                <WaitlistForm />
               </div>
-              <WaitlistForm />
+              <p className="mt-3 text-[11px] text-bone/30">
+                One email at launch. No playlists in your inbox.
+              </p>
             </div>
           </div>
         </section>
       </main>
 
       <footer className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-10 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <div className="flex items-center gap-2.5">
+        <div className="mx-auto max-w-[1240px] px-6 py-12">
+          <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-start gap-3">
               <Logo className="h-8 w-8" />
-              <span className="font-display text-xl font-medium tracking-tight">
-                Chorus
-              </span>
+              <div>
+                <p className="font-display text-[17px] font-medium tracking-[-0.01em]">
+                  Chorus
+                </p>
+                <p className="mt-1 text-[13px] text-bone/40">
+                  Music with every voice in it.
+                </p>
+              </div>
             </div>
-            <p className="mt-3 text-sm text-mist">Music with every voice in it.</p>
-            <p className="mt-6 text-xs text-mist/70">© 2026 Chorus</p>
+
+            <nav className="flex flex-wrap gap-x-10 gap-y-3 text-[13px] text-bone/50">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="transition-colors hover:text-bone"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a href="#waitlist" className="transition-colors hover:text-bone">
+                Privacy
+              </a>
+              <a href="#waitlist" className="transition-colors hover:text-bone">
+                Terms
+              </a>
+            </nav>
           </div>
 
-          <nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-mist">
-            <a className="transition-colors hover:text-bone" href="#discover">
-              Discover
-            </a>
-            <a className="transition-colors hover:text-bone" href="#artists">
-              Artists
-            </a>
-            <a className="transition-colors hover:text-bone" href="#plans">
-              Plans
-            </a>
-            <a className="transition-colors hover:text-bone" href="#waitlist">
-              Privacy
-            </a>
-            <a className="transition-colors hover:text-bone" href="#waitlist">
-              Terms
-            </a>
-          </nav>
+          <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-5 text-[11px] tracking-[0.1em] text-bone/30 uppercase sm:flex-row sm:justify-between">
+            <span>© 2026 Chorus</span>
+            <span>Every voice. One sound.</span>
+          </div>
         </div>
       </footer>
     </div>
